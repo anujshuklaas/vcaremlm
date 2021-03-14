@@ -9,13 +9,13 @@ class Website extends CI_Controller {
             $this->setDefaultData();
         }
 
-	public function index()
-	{   
-            $this->load->view('web/common/header');
-            $this->load->view('web/home');
-            $this->load->view('web/common/footer');
-	}
-        
+						public function index()
+						{   
+								$this->load->view('web/common/header');
+								$this->load->view('web/home');
+								$this->load->view('web/common/footer');
+						}
+							
         public function aboutus()
         {
             $this->load->view('web/common/header');
