@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2021 at 05:24 PM
+-- Generation Time: Mar 19, 2021 at 05:56 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -20,6 +20,51 @@ SET time_zone = "+00:00";
 --
 -- Database: `vcare_make9`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `parentId` varchar(255) DEFAULT NULL,
+  `planId` int(11) NOT NULL DEFAULT 0,
+  `name` varchar(255) DEFAULT NULL,
+  `mobile` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` text DEFAULT NULL,
+  `profilePic` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `side` varchar(50) DEFAULT NULL COMMENT 'left, right',
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT 'pending, approved, blocked',
+  `kycStatus` int(11) NOT NULL DEFAULT 0,
+  `createdDate` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plans`
+--
+
+CREATE TABLE `plans` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `amount` double(10,2) NOT NULL DEFAULT 0.00,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `createdDate` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `plans`
+--
+
+INSERT INTO `plans` (`id`, `name`, `amount`, `status`, `createdDate`) VALUES
+(1, 'Basic', 4500.00, 1, '2021-03-19 00:11:47'),
+(2, 'Advanced', 13500.00, 1, '2021-03-19 00:11:47');
 
 -- --------------------------------------------------------
 
@@ -79,6 +124,18 @@ INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `image`, `dob`, `gender`, 
 --
 
 --
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `plans`
+--
+ALTER TABLE `plans`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
@@ -93,6 +150,18 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `plans`
+--
+ALTER TABLE `plans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `settings`
