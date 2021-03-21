@@ -92,11 +92,22 @@ class Common_modal extends CI_Model {
         return $Query;
     }
     
+	
+	
     public function getPlansDetails($whereArr)
     {
         $this->db->select('*');
         $this->db->from('plans');
         $this->db->where($whereArr);
+        $Query=$this->db->get();
+        return $Query;
+    }
+	
+	public function getTreeDetailsById($whereUsername)
+    {
+        $this->db->select('*');
+        $this->db->from('customers');
+        $this->db->where('parentId',$whereUsername);
         $Query=$this->db->get();
         return $Query;
     }
