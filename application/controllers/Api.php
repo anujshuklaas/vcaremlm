@@ -6,6 +6,7 @@ class Api extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+		ini_set('max_execution_time', '0'); 
         header('Content-Type: application/json');
     }
 
@@ -180,5 +181,39 @@ class Api extends CI_Controller {
         
         echo json_encode($returnArr); die();
     }
+	
+	public function getTreeDetailsById()
+	{
+	$GLOBALS['user']=array();
+		$username=$this->input->post('username');
+		
+		$this->getChildsDetails($username);
+		
+		//echo '<pre>';print_r($GLOBALS['user']); die();
+		
+		if(!empty($GLOBALS['user']))
+        {
+            $returnArr['status']=1;
+            $returnArr['details']=$GLOBALS['user'];
+        }else{
+            $returnArr['status']=0;
+        }
+		
+        echo json_encode($returnArr); die();
+	}
+	
+	function getChildsDetails($username)
+	{
+		$userCheck=$this->Common_modal->getTreeDetailsById($username);
+		if($userCheck->num_rows())
+        {
+			foreach($userCheck->result() as $trow)
+			{
+				$GLOBALS['user'][$username][]=array('side'=>$trow->side,'username'=>$trow->username,'status'=>$trow->status);
+				
+				$this->getChildsDetails($trow->username);
+			}
+		}
+	}
     
 }
